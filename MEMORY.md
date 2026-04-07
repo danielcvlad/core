@@ -43,6 +43,13 @@ Skills: devops-automation-pack, docker-compose, docker-essentials,
         git-essentials, git-workflows, security-auditor,
         security-hardening, system-resource-monitor
 
+## WhatsApp Notes
+- Chiciu's WhatsApp: +49 151 72640867
+- Dan's WhatsApp: +49 160 7449152 (whitelisted, dmPolicy: allowlist)
+- Colleague (Margareta's contact): +49 171 1542891
+- CLI "pairing required" error = CLI token needs scope upgrade — fix with `openclaw devices approve <request-id>`
+- Always approve scope-upgrade requests before using `openclaw message send`
+
 ## Important Rules
 - Private things stay private
 - When in doubt, ask before external actions
