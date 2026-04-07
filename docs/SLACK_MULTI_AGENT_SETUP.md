@@ -51,7 +51,7 @@ In each app's settings:
 2. Click **Generate Token**
 3. Name it (e.g., "chiciu-app-token")
 4. Add scope: `connections:write`
-5. Copy the `xapp-...` token
+5. Copy the app-level token
 
 ### Step 4: Subscribe to Events
 
@@ -66,7 +66,7 @@ In each app's settings:
 
 In each app's settings:
 1. Go to **Install App** → **Install to Workspace**
-2. Copy the **Bot User OAuth Token** (`xoxb-...`)
+2. Copy the **Bot User OAuth Token**
 
 ### Step 6: Configure OpenClaw
 
@@ -80,20 +80,20 @@ Add each bot's tokens to `~/.openclaw/openclaw.json`:
       "mode": "socket",
       "accounts": {
         "chiciu": {
-          "botToken": "xoxb-...",
-          "appToken": "xapp-..."
+          "botToken": "<BOT_TOKEN>",
+          "appToken": "<APP_TOKEN>"
         },
         "margareta": {
-          "botToken": "xoxb-...",
-          "appToken": "xapp-..."
+          "botToken": "<BOT_TOKEN>",
+          "appToken": "<APP_TOKEN>"
         },
         "roger": {
-          "botToken": "xoxb-...",
-          "appToken": "xapp-..."
+          "botToken": "<BOT_TOKEN>",
+          "appToken": "<APP_TOKEN>"
         },
         "nina": {
-          "botToken": "xoxb-...",
-          "appToken": "xapp-..."
+          "botToken": "<BOT_TOKEN>",
+          "appToken": "<APP_TOKEN>"
         }
       }
     }
@@ -101,16 +101,47 @@ Add each bot's tokens to `~/.openclaw/openclaw.json`:
 }
 ```
 
-### Step 7: Restart Gateway
+### Step 7: Configure Routing Bindings
+
+Add routing bindings to `~/.openclaw/openclaw.json` to map each Slack account to an agent:
+
+```json
+{
+  "bindings": [
+    {
+      "type": "route",
+      "agentId": "main",
+      "match": { "channel": "slack", "accountId": "chiciu" }
+    },
+    {
+      "type": "route",
+      "agentId": "margareta",
+      "match": { "channel": "slack", "accountId": "margareta" }
+    },
+    {
+      "type": "route",
+      "agentId": "roger-infrastructure-engineer",
+      "match": { "channel": "slack", "accountId": "roger" }
+    },
+    {
+      "type": "route",
+      "agentId": "nina-marketing-expert",
+      "match": { "channel": "slack", "accountId": "nina" }
+    }
+  ]
+}
+```
+
+### Step 8: Restart Gateway
 
 ```bash
 openclaw gateway restart
 ```
 
-### Step 8: Verify
+### Step 9: Verify
 
 ```bash
-openclaw status
+openclaw channels status
 ```
 
 Should show Slack: `ON · OK · tokens ok (bot config×5, app config×5)`
@@ -136,20 +167,10 @@ Each agent has its own workspace with distinct identity files:
 - Verify Socket Mode is enabled
 
 **Gateway shows Slack WARN:**
-- Check that all 5 accounts have both `botToken` AND `appToken`
+- Check that all accounts have both `botToken` AND `appToken`
 - Restart gateway: `openclaw gateway restart`
 
 **Agent has wrong identity:**
 - Check agent's workspace `SOUL.md` and `IDENTITY.md`
-- Ensure files are not generic templates
+- Ensure BOOTSTRAP.md has been deleted after initial setup
 - Restart gateway after updating identity files
-
-## Bot Token Reference
-
-| Agent | Bot Token | App Token |
-|-------|-----------|-----------|
-| default | `xoxb-...` | `xapp-1-A0AR6V6ATB7-...` |
-| chiciu | `xoxb-...` | `xapp-1-A0AR6V6ATB7-...` |
-| margareta | `xoxb-...` | `xapp-1-A0AS4KXAAAU-...` |
-| roger | `xoxb-...` | `xapp-1-A0AR6UVD35K-...` |
-| nina | `xoxb-...` | `xapp-1-A0ARP88LUU9-...` |
