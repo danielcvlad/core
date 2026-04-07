@@ -50,6 +50,14 @@ Skills: devops-automation-pack, docker-compose, docker-essentials,
 - CLI "pairing required" error = CLI token needs scope upgrade — fix with `openclaw devices approve <request-id>`
 - Always approve scope-upgrade requests before using `openclaw message send`
 
+## Agent Architecture
+- **Chiciu** (main agent): Handles Dan's WhatsApp + all DevOps tasks
+- **Margareta** (margareta agent): Dedicated to M at +49 171 1542891
+  - Workspace: `/home/dvlad/.openclaw/agents/margareta/workspace/`
+  - Bound to: `whatsapp:default`
+  - Shared WhatsApp account (`+49 151 72640867`) — limitation: M sees Chiciu's messages when Dan sends from same number
+  - True separation would require a second WhatsApp number
+
 ## Important Rules
 - Private things stay private
 - When in doubt, ask before external actions
